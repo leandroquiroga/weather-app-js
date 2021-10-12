@@ -7,15 +7,17 @@ export const localizate = (position) => {
     let cityActual = selector('#geo_now')
     const latitude = Number(position.coords.latitude);
     const longitude = Number(position.coords.longitude);
-    const apiKey = '3133fbcf4cd094ab88deac33c67ce6a4'
-    const url = (`http://api.positionstack.com/v1/reverse?access_key=${apiKey}&query=${latitude},${longitude}`);
+    const apiKey = 'd62111581f103b598198001d275a170b';
+    const url = (`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+    console.log(url)
     fetch(url)
         .then(response => response.json())
         .then(datos => {
-            city = datos.data[0].county
+            const {name, id} = datos 
+            city = name
             addDataBase(city, latitude, longitude);
             cityActual.textContent = city
-            weatherConsult(city);
+            weatherConsult(id);
             weatherConsultFor5Days(latitude,longitude)
         })
         
@@ -44,10 +46,10 @@ function addDataBase(city, latitude, longitude) {
     openDataBase.onerror = () => console.log('Sucedio un error')   
 }
 
-function weatherConsult(city) {
-    let currentCity = city.split(" ").join("");
+function weatherConsult(cityID) {
+    let currentCity = cityID
     const apiKey = 'd62111581f103b598198001d275a170b';
-    const url = (`http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`)
+    const url = (`http://api.openweathermap.org/data/2.5/weather?id=${currentCity}&appid=${apiKey}`)
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -68,7 +70,7 @@ function weatherConsultFor5Days(lat,long) {
 function showData(data) {
     const { main: { temp, humidity, pressure } } = data;
     const { weather: [{ main, icon }] } = data;
-    const { wind: {speed , deg}, visibility} = data
+    const { wind: {speed}, visibility} = data
 
     scripting(temp, humidity, pressure, main, visibility, speed, icon)
 }
