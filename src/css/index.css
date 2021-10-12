@@ -1,0 +1,305 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --font:'Poppins', sans-serif;
+    --dark: #100E1D;
+    --blue_dark:#1E213A;
+    --white: #fefefe;
+    --gray: #dddddd;
+    --yellow: #ffea00;
+    --red: #ef0000;
+
+}
+/*Clases globales*/
+.list-group-item{
+    background-color: var(--blue_dark);
+}
+.button{
+    height: 35px;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background-color: var(--blue_dark);
+    color: var(--white);
+    font: 400 .8rem var(--font);
+}
+
+.button:hover{
+    border: 1px solid var(--gray);
+}
+.msgErr{
+    color: var(--red);
+    font: 400 .8rem var(--font);
+    /* height: 5px; */
+}
+.humidity{
+    font: 400 .6rem var(--font);
+}
+.ion-icon{
+    font-size: 35px;
+    color: var(--gray);
+}
+.text-visibility,
+.text-card{
+    font: 400 2.3rem var(--font);
+}
+.text-small{
+    font: 400 1rem var(--font);
+}
+.text-title-info{
+    font: 400 1.5rem var(--font);
+}
+.progress{
+    height: 10px;
+}
+.progress-bar{
+    height: 13px;
+    background-color: var(--yellow);
+    color: var(--dark);
+    font: 600 .7rem var(--font);        
+}
+.text-title{
+    font: 400 .8rem var(--font);    
+}
+.text-date{
+    font: 400 .8rem var(--font);
+}
+.temp-min{
+    font: 400 .7rem var(--font);
+}
+.temp-max,
+.decription-weather{
+    font: 400 .7rem var(--font);
+    color: var(--gray);
+}
+.btnClose{
+    background-color:  var(--blue_dark);
+    color: var(--white);
+    font: 400 1rem var(--font);
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.icon-svg{
+    display: block;
+    padding: 10px;
+}
+.temp{
+    font: 400 3.5rem var(--font);
+    color: var(--white);
+}
+.clima{
+    font: 400 1.5rem var(--font);
+    color: var(--gray);
+}
+.date{
+    font: 400 .9rem var(--font);
+    color: var(--gray);
+}    
+.localte{
+    font: 400 .8rem var(--font);
+    color: var(--gray);
+}
+.weather-icon{
+    width: 200px;
+    margin-bottom: 15px;
+}
+.oculto{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/*Clases internas*/
+.content{
+    background-color: var(--dark);
+}
+/* Aside data*/
+.content .barra-lateral .items-aside{
+    display: grid;
+    grid-template-rows: 10% 35% 25% 10% 10% 10%;
+    place-items: center;
+    z-index: 1;
+    background-color:  var(--blue_dark);
+}
+
+.content .barra-lateral .buttons{
+    background-color: var(--dark);
+    color: var(--white);
+    font: 100 .9rem var(--font)
+}
+
+.content .barra-lateral .svg-icon,
+.svg-icon-2{
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    background-color: var(--dark);
+    border-radius: 55px;
+    cursor: pointer;
+}
+.svg-icon-2{
+    background-color: var(--blue_dark);
+}
+
+/* Aside desplegable */
+.content .barra-lateral-inf .input-city{
+    display: grid;
+    grid-template-rows: 5% 10% 85%; 
+    z-index: 5;
+    background-color:  var(--blue_dark);
+}
+.content .barra-lateral-inf .input-city .input{
+    background-color: var(--blue_dark);
+    border: none;
+    color: var(--white);
+    font: 400 .9rem var(--font);
+    outline: 0;
+}
+.content .barra-lateral-inf .input-city .btn-send{
+    background-color: var(--dark);
+    color: var(--white);
+    font: 100 .9rem var(--font);
+}
+/*Main*/
+.main{
+    display: grid;
+    grid-template-rows: repeat(3,auto);
+    row-gap: 40px;
+    padding: 10px;
+    place-items: center;
+}
+.main .cards-days {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,auto));
+    column-gap: 15px;
+    row-gap: 15px;
+    place-content: center;
+    place-items: center;
+}
+.main .cards-days .card,
+.main .data-Hightlights .card-Hightlights .card{
+    background-color: var(--blue_dark);
+    color: var(--white);
+    border-radius: 10px;
+}
+.main .data-Hightlights .card-Hightlights{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax( 350px, auto));
+    column-gap: 20px;
+    row-gap: 15px;
+    place-content: center;
+    place-items: center;
+}
+
+.footer{
+    height: 75px;
+    margin-top: 25px;
+}
+.footer .text-user{
+    font: 400 .8rem var(--font);
+    color: var(--white);
+}
+
+/* Effect Animista*/
+/*
+ * ----------------------------------------
+ * animation scale-in-hor-left
+ * ----------------------------------------
+ */
+.scale-in-hor-left {
+	-webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes slide-in-left{
+    0% {
+        -webkit-transform: translateX(-1000px);
+                transform: translateX(-1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+      }
+}
+@keyframes sslide-in-left {
+    0% {
+        -webkit-transform: translateX(-1000px);
+                transform: translateX(-1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+      }
+}
+
+  
+/**
+ * ----------------------------------------
+ * animation scale-out-hor-left-exit
+ * ----------------------------------------
+ */
+.scale-out-hor-left-exit {
+	-webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes slide-in-right{
+    0% {
+        -webkit-transform: translateX(1000px);
+                transform: translateX(1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+      }
+}
+@keyframes slide-in-right{
+    0% {
+        -webkit-transform: translateX(1000px);
+                transform: translateX(1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+      }
+}
+
+
+@media only screen and (max-width: 500px){
+    .main .data-Hightlights .card-Hightlights{
+        grid-template-columns: repeat(auto-fit,minmax(200px,auto));
+        place-items: center;
+        place-content : center;
+    }
+    .main .cards-days{
+        grid-template-columns: repeat(auto-fit,minmax(120px,auto));
+        column-gap: 0;
+        row-gap: 15px;
+        place-items: center;
+    }
+
+    .card{
+        width: 90% !important;   
+    }
+    .text-card,
+    .text-visibility{
+        font: 400 1.5rem var(--font);
+    }
+    .text-title{
+        font: 400 .7rem var(--font);    
+    }
+    .text-title-info{
+        font: 400 1rem var(--font);
+    }
+}
