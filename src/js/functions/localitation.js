@@ -1,28 +1,34 @@
 import { create, selector } from "../module/app";
 import { showInfoFor5Days } from "./weather5Days";
+import 'regenerator-runtime/runtime'
 // import {  } from ;
 
-export const localizate = (position) => {
+export const localizate = async (position) => {
     let city;
     let cityActual = selector('#geo_now')
     const latitude = Number(position.coords.latitude);
     const longitude = Number(position.coords.longitude);
     const apiKey = 'd62111581f103b598198001d275a170b';
     const url = (`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-    console.log(url)
-    fetch(url)
-        .then(response => response.json())
-        .then(datos => {
-            const {name, id} = datos 
-            city = name
-            addDataBase(city, latitude, longitude);
-            cityActual.textContent = city
-            weatherConsult(id);
-            weatherConsultFor5Days(latitude,longitude)
-        })
-        
+    /* ~ */
+
+
+    try {
+        const resoponse = await fetch(url)
+        const result = await resoponse.json();
+        const { name, id } = result;
+        city = name;
+        addDataBase(city, latitude, longitude);
+        cityActual.textContent = city
+        weatherConsult(id);
+        weatherConsultFor5Days(latitude, longitude); 
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
+// create database with IndexdDB
 function addDataBase(city, latitude, longitude) {
     let DB;
     let locale = {
@@ -30,43 +36,53 @@ function addDataBase(city, latitude, longitude) {
         lat: latitude,
         long: longitude,
         id: Date.now()
-    }  
+    }
     let openDataBase = window.indexedDB.open('location', 1);
 
     openDataBase.onsuccess = () => {
         DB = openDataBase.result
-        // agreagamos los datos en la base de datos 
+        // agreagamos los datos en la base de datos
         let transaction = DB.transaction(['location'], 'readwrite');
         let objectStore = transaction.objectStore('location');
-    
+
         objectStore.add(locale);
-        
+
     }
     openDataBase.oncomplete = () => console.log("Transaccion completa");
-    openDataBase.onerror = () => console.log('Sucedio un error')   
+    openDataBase.onerror = () => console.log('Sucedio un error')
 }
 
-function weatherConsult(cityID) {
+// Check the API for the current weather in the city with your ID
+async function weatherConsult(cityID) {
     let currentCity = cityID
     const apiKey = 'd62111581f103b598198001d275a170b';
     const url = (`http://api.openweathermap.org/data/2.5/weather?id=${currentCity}&appid=${apiKey}`)
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            showData(data)
-         })
+    /* ~ */
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+        showData(result)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-function weatherConsultFor5Days(lat,long) {
+// Returns the forecast extended by 5 days
+async function weatherConsultFor5Days(lat, long) {
     const apiKey = 'd62111581f103b598198001d275a170b';
     const url = (`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=${apiKey}`)
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            showInfoFor5Days(data)
-        })
+    /* ~ */
+
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+        showInfoFor5Days(result)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
+// Show data the API
 function showData(data) {
     const { main: { temp, humidity, pressure } } = data;
     const { weather: [{ main, icon }] } = data;
@@ -100,7 +116,7 @@ function progress_Bar(bar, humidity) {
     bar.style.width = `${humidity}%`
     bar.ariaValueNow = `${humidity}`;
     percentage.textContent = `${humidity}%`
-    
+
 }
 function showIcon(icon, div) {
     let iconID = icon;
