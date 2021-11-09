@@ -1,16 +1,24 @@
 import { create, selector } from "../module/app";
 import { limpiarHTML } from "./clearHTML";
 
-export const dataWeatherCountry = (info) => {
+export const dataWeatherCountry = async (info) => {
     const { coord: { lon, lat }} = info;
 
     const apiKey = 'd62111581f103b598198001d275a170b';
     const url = (`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}`)
-    fetch(url)
+/*     fetch(url)
         .then(response => response.json())
         .then(data => {
             showInfoFor5Days(data, info)
-        })
+        }) */
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        showInfoFor5Days(data, info)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
